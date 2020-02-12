@@ -12,8 +12,7 @@ RUN apt update && apt -y upgrade && apt -y install \
 	git \
 	libtool-bin \
 	automake \
-	python-dev \
-	mpi-default-dev
+	python-dev
 
 # Clean up apt mess
 RUN apt clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
@@ -33,7 +32,7 @@ RUN git clone https://github.com/sstsimulator/sst-elements.git $dir/sst-elements
 
 # Build SST Core
 RUN cd $dir/sst-core && ./autogen.sh && \
-	./configure --prefix=$SST_CORE_HOME && \
+	./configure --prefix=$SST_CORE_HOME --disable-mpi && \
 	make all install
 
 # Build SST Elements
